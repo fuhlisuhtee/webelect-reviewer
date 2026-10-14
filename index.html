@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A friendly study quiz for Web Development and Machine Learning."
+    />
+    <title>WebElect — your subject, your pace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="questions.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="WebElect home" data-home>
+        <span class="brand-mark" aria-hidden="true">W</span>
+        <span>Web<span class="brand-accent">Elect</span></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="topbar-note"><span class="status-dot"></span> Your own little study space</span>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Switch to dark mode"
+          aria-pressed="false"
+          title="Switch to dark mode"
+        >
+          <span id="theme-icon" aria-hidden="true">☾</span>
+          <span class="theme-toggle-label">Dark mode</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="app" class="page-shell">
+      <section id="welcome-screen" class="screen welcome-screen">
+        <div class="welcome-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> A quick quiz, a brighter brain</div>
+          <h1>Let’s make<br />studying <span class="highlight">click.</span></h1>
+          <p class="intro">
+            Pick a subject, choose your challenge, and see what you know. No pressure—just progress.
+          </p>
+          <div class="welcome-stats" aria-label="Quiz options">
+            <div class="stat"><span class="stat-icon">✦</span><span><strong>2</strong><small>subjects</small></span></div>
+            <span class="stat-divider"></span>
+            <div class="stat"><span class="stat-icon stat-icon-lilac">↗</span><span><strong>2</strong><small>quiz styles</small></span></div>
+            <span class="stat-divider"></span>
+            <div class="stat"><span class="stat-icon stat-icon-peach">♡</span><span><strong>0</strong><small>stress points</small></span></div>
+          </div>
+        </div>
+
+        <div class="selection-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step-label">STEP 01</span>
+              <h2>Choose a subject</h2>
+            </div>
+            <span class="step-number">01 <span>/ 02</span></span>
+          </div>
+          <div class="subject-list">
+            <button class="subject-card web-card" type="button" data-subject="web">
+              <span class="subject-icon web-icon" aria-hidden="true">&lt;/&gt;</span>
+              <span class="subject-info">
+                <strong>Web Development</strong>
+                <small>HTML, CSS &amp; JavaScript</small>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button class="subject-card ml-card" type="button" data-subject="ml">
+              <span class="subject-icon ml-icon" aria-hidden="true">✳</span>
+              <span class="subject-info">
+                <strong>Machine Learning</strong>
+                <small>Models, data &amp; more</small>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div class="panel-footer">
+            <span class="footer-sparkle" aria-hidden="true">✳</span>
+            <span>Little by little adds up to a lot.</span>
+          </div>
+        </div>
+        <div class="floating-note"><span aria-hidden="true">✦</span> You’ve got this!</div>
+      </section>
+
+      <section id="mode-screen" class="screen content-screen" hidden>
+        <button class="back-link" type="button" data-go="welcome">← <span>All subjects</span></button>
+        <div class="content-header">
+          <span class="step-label">STEP 02 · <span id="selected-subject-label">SUBJECT</span></span>
+          <h1>How do you want<br />to <span class="highlight">practice?</span></h1>
+          <p>Two ways to check what’s sticking. Pick whichever feels right.</p>
+        </div>
+        <div class="mode-grid">
+          <button class="mode-card identification-mode" type="button" data-mode="identification">
+            <span class="mode-illustration id-illustration" aria-hidden="true">
+              <span class="illustration-line"></span><span class="illustration-line short"></span><span class="illustration-cursor">✎</span>
+            </span>
+            <span class="mode-card-content">
+              <span class="mode-tag">TYPE IT OUT</span>
+              <strong>Identification</strong>
+              <span>Recall the answer and type it in. Great for remembering the details.</span>
+            </span>
+            <span class="mode-cta">Start typing <span aria-hidden="true">→</span></span>
+          </button>
+          <button class="mode-card multiple-mode" type="button" data-mode="multiple">
+            <span class="mode-illustration mc-illustration" aria-hidden="true">
+              <span class="mini-choice selected">A</span><span class="mini-choice">B</span><span class="mini-choice">C</span>
+            </span>
+            <span class="mode-card-content">
+              <span class="mode-tag">PICK AN ANSWER</span>
+              <strong>Multiple choice</strong>
+              <span>Choose from a few options and build confidence as you go.</span>
+            </span>
+            <span class="mode-cta">Let’s go <span aria-hidden="true">→</span></span>
+          </button>
+        </div>
+        <p id="identification-availability" class="demo-note" hidden>
+          <span aria-hidden="true">✦</span> Identification questions haven’t been added for this subject yet.
+        </p>
+        <p class="demo-note"><span aria-hidden="true">✦</span> More questions can be added whenever you’re ready.</p>
+      </section>
+
+      <section id="quiz-screen" class="screen quiz-screen" hidden>
+        <div class="quiz-topline">
+          <button class="back-link" type="button" data-go="mode">← <span>Change quiz</span></button>
+          <div class="quiz-meta"><span id="quiz-subject"></span><span class="meta-dot">·</span><span id="quiz-mode"></span></div>
+          <span class="question-counter"><span id="question-current">1</span><span class="counter-slash">/</span><span id="question-total">5</span></span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="progress-fill"></span>
+        </div>
+        <div class="question-area">
+          <div class="question-kicker"><span class="question-sparkle" aria-hidden="true">✳</span> YOUR QUESTION</div>
+          <p id="question-category" class="question-category"></p>
+          <h1 id="question-text"></h1>
+          <div id="question-visual" class="question-visual" hidden></div>
+          <form id="answer-form" novalidate>
+            <div id="answer-input"></div>
+            <div id="answer-feedback" class="answer-feedback" role="status" aria-live="polite" hidden></div>
+            <div class="question-actions">
+              <span class="gentle-reminder">Take your time. You’re learning. ☺</span>
+              <button class="primary-button" type="submit" id="answer-button">Check answer <span aria-hidden="true">→</span></button>
+              <button class="primary-button" type="button" id="next-button" hidden>Next question <span aria-hidden="true">→</span></button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="results-screen" class="screen results-screen" hidden>
+        <div class="results-header">
+          <span class="results-sparkle" aria-hidden="true">✦</span>
+          <span class="step-label">THAT’S A WRAP</span>
+          <h1 id="results-title">Nice work!</h1>
+          <p id="results-subtitle"></p>
+        </div>
+        <div class="score-card">
+          <div class="score-ring" id="score-ring">
+            <div class="score-ring-inner">
+              <strong id="score-percent">0%</strong>
+              <span>YOUR SCORE</span>
+            </div>
+          </div>
+          <div class="score-summary">
+            <span id="score-fraction">0 / 0 correct</span>
+            <strong id="score-message">Every question is a chance to learn.</strong>
+          </div>
+        </div>
+        <div class="review-heading">
+          <div><span class="step-label">QUICK REVIEW</span><h2>Your answers</h2></div>
+          <span id="review-count" class="review-count"></span>
+        </div>
+        <div id="answer-review" class="answer-review"></div>
+        <div class="results-actions">
+          <button class="secondary-button" type="button" data-go="welcome">Choose another subject</button>
+          <button class="primary-button" type="button" data-retry>Try this quiz again <span aria-hidden="true">↻</span></button>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>WebElect · made for learning, one question at a time.</span><span>✳</span></footer>
+  </body>
+</html>
