@@ -448,6 +448,11 @@ h2,
   gap: 18px;
 }
 
+.mode-grid.single-mode {
+  grid-template-columns: minmax(0, 430px);
+  justify-content: center;
+}
+
 .mode-card {
   display: flex;
   min-height: 300px;
@@ -597,6 +602,53 @@ h2,
 .demo-note span {
   margin-right: 5px;
   color: #d2aa49;
+}
+
+.practice-options {
+  display: flex;
+  max-width: 520px;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 auto 20px;
+  padding: 15px 17px;
+  border: 1px solid #eceaf2;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.practice-options label {
+  display: grid;
+  flex: 1;
+  gap: 7px;
+  color: #93909f;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.practice-options select {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 34px 0 11px;
+  color: var(--ink);
+  border: 1px solid #e5e2ed;
+  border-radius: 8px;
+  background: white;
+  font: 500 12px "DM Sans", sans-serif;
+}
+
+.practice-options select:focus-visible {
+  border-color: #a893fa;
+  outline: 2px solid #f0edff;
+  outline-offset: 1px;
+}
+
+#topic-question-count {
+  flex: 0 0 auto;
+  margin: 0 0 12px;
+  color: #858391;
+  font-size: 11px;
 }
 
 .quiz-screen {
@@ -856,6 +908,11 @@ h2,
   background: var(--rose-light);
 }
 
+.answer-feedback.is-reminder {
+  color: #6d5b9b;
+  background: var(--purple-light);
+}
+
 .answer-feedback b {
   color: var(--ink);
 }
@@ -1076,6 +1133,14 @@ h2,
   min-width: 0;
 }
 
+.review-category {
+  display: block;
+  margin-top: 4px;
+  color: #8d7ac7;
+  font-size: 9px;
+  font-weight: 600;
+}
+
 .review-question-number {
   color: #9b98a5;
   font-size: 9px;
@@ -1107,6 +1172,33 @@ h2,
   color: #33836b;
 }
 
+.review-copy .review-explanation {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0eef4;
+}
+
+.topic-review {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 12px;
+  color: #888593;
+  font-size: 10px;
+}
+
+.topic-review strong {
+  margin-right: 3px;
+  color: var(--ink);
+}
+
+.topic-review span {
+  padding: 5px 8px;
+  border-radius: 20px;
+  background: #f1efff;
+}
+
 .review-result {
   margin-left: auto;
   padding-top: 3px;
@@ -1122,6 +1214,7 @@ h2,
 
 .results-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 11px;
   margin-top: 25px;
@@ -1197,6 +1290,16 @@ h2,
     padding: 22px;
   }
 
+  .practice-options {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  #topic-question-count {
+    margin: 0;
+  }
+
   .floating-note {
     right: 5px;
     bottom: -2px;
@@ -1241,7 +1344,12 @@ h2,
   }
 
   .question-actions {
+    flex-wrap: wrap;
     justify-content: flex-end;
+  }
+
+  .question-actions .secondary-button {
+    margin-left: auto;
   }
 }
 
@@ -1458,6 +1566,9 @@ html[data-theme="dark"] .score-summary span,
 html[data-theme="dark"] .score-ring-inner span,
 html[data-theme="dark"] .review-question-number,
 html[data-theme="dark"] .review-copy p,
+html[data-theme="dark"] .review-category,
+html[data-theme="dark"] #topic-question-count,
+html[data-theme="dark"] .practice-options label,
 html[data-theme="dark"] .site-footer {
   color: var(--muted);
 }
@@ -1472,11 +1583,18 @@ html[data-theme="dark"] .choice-option,
 html[data-theme="dark"] .score-card,
 html[data-theme="dark"] .score-ring-inner,
 html[data-theme="dark"] .review-item,
+html[data-theme="dark"] .practice-options,
 html[data-theme="dark"] .secondary-button,
 html[data-theme="dark"] .theme-toggle {
   color: var(--ink);
   border-color: var(--line);
   background-color: #211f2a;
+}
+
+html[data-theme="dark"] .practice-options select {
+  color: var(--ink);
+  border-color: var(--line);
+  background-color: #292733;
 }
 
 html[data-theme="dark"] .text-answer::placeholder {
@@ -1533,8 +1651,26 @@ html[data-theme="dark"] .answer-feedback.is-incorrect {
   background: #40282d;
 }
 
+html[data-theme="dark"] .answer-feedback.is-reminder {
+  color: #d0c1ff;
+  background: #302a45;
+}
+
 html[data-theme="dark"] .answer-feedback b {
   color: #fff;
+}
+
+html[data-theme="dark"] .topic-review strong {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .topic-review span {
+  color: #d0c1ff;
+  background: #302a45;
+}
+
+html[data-theme="dark"] .review-copy .review-explanation {
+  border-top-color: var(--line);
 }
 
 html[data-theme="dark"] .score-ring {

@@ -51,9 +51,9 @@
           <div class="welcome-stats" aria-label="Quiz options">
             <div class="stat"><span class="stat-icon">✦</span><span><strong>2</strong><small>subjects</small></span></div>
             <span class="stat-divider"></span>
-            <div class="stat"><span class="stat-icon stat-icon-lilac">↗</span><span><strong>2</strong><small>quiz styles</small></span></div>
+            <div class="stat"><span class="stat-icon stat-icon-lilac">↗</span><span><strong id="study-topic-count">8</strong><small>study topics</small></span></div>
             <span class="stat-divider"></span>
-            <div class="stat"><span class="stat-icon stat-icon-peach">♡</span><span><strong>0</strong><small>stress points</small></span></div>
+            <div class="stat"><span class="stat-icon stat-icon-peach">?</span><span><strong id="total-question-count">155</strong><small>review questions</small></span></div>
           </div>
         </div>
 
@@ -70,7 +70,7 @@
               <span class="subject-icon web-icon" aria-hidden="true">&lt;/&gt;</span>
               <span class="subject-info">
                 <strong>Web Development</strong>
-                <small>HTML, CSS &amp; JavaScript</small>
+                <small>HTML, CSS, JavaScript &amp; PHP</small>
               </span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </button>
@@ -78,7 +78,7 @@
               <span class="subject-icon ml-icon" aria-hidden="true">✳</span>
               <span class="subject-info">
                 <strong>Machine Learning</strong>
-                <small>Models, data &amp; more</small>
+                <small>ML workflow, training, images &amp; audio</small>
               </span>
               <span class="card-arrow" aria-hidden="true">↗</span>
             </button>
@@ -95,8 +95,14 @@
         <button class="back-link" type="button" data-go="welcome">← <span>All subjects</span></button>
         <div class="content-header">
           <span class="step-label">STEP 02 · <span id="selected-subject-label">SUBJECT</span></span>
-          <h1>How do you want<br />to <span class="highlight">practice?</span></h1>
-          <p>Two ways to check what’s sticking. Pick whichever feels right.</p>
+          <h1>Choose your<br /><span class="highlight">practice.</span></h1>
+          <p>Focus on one topic or mix everything together. Questions and choices are shuffled each round.</p>
+        </div>
+        <div class="practice-options">
+          <label for="topic-filter">FOCUS TOPIC
+            <select id="topic-filter"></select>
+          </label>
+          <p id="topic-question-count" role="status"></p>
         </div>
         <div class="mode-grid">
           <button class="mode-card identification-mode" type="button" data-mode="identification">
@@ -117,7 +123,7 @@
             <span class="mode-card-content">
               <span class="mode-tag">PICK AN ANSWER</span>
               <strong>Multiple choice</strong>
-              <span>Choose from a few options and build confidence as you go.</span>
+              <span>Choose from shuffled options. Skip tough ones and come back before you finish.</span>
             </span>
             <span class="mode-cta">Let’s go <span aria-hidden="true">→</span></span>
           </button>
@@ -125,14 +131,14 @@
         <p id="identification-availability" class="demo-note" hidden>
           <span aria-hidden="true">✦</span> Identification questions haven’t been added for this subject yet.
         </p>
-        <p class="demo-note"><span aria-hidden="true">✦</span> More questions can be added whenever you’re ready.</p>
+        <p class="demo-note"><span aria-hidden="true">✦</span> Every question has an answer key and is counted once in your score.</p>
       </section>
 
       <section id="quiz-screen" class="screen quiz-screen" hidden>
         <div class="quiz-topline">
           <button class="back-link" type="button" data-go="mode">← <span>Change quiz</span></button>
           <div class="quiz-meta"><span id="quiz-subject"></span><span class="meta-dot">·</span><span id="quiz-mode"></span></div>
-          <span class="question-counter"><span id="question-current">1</span><span class="counter-slash">/</span><span id="question-total">5</span></span>
+          <span class="question-counter"><span id="question-current">0</span><span class="counter-slash">/</span><span id="question-total">5</span><span class="counter-label"> answered</span></span>
         </div>
         <div class="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
           <span class="progress-fill"></span>
@@ -146,9 +152,10 @@
             <div id="answer-input"></div>
             <div id="answer-feedback" class="answer-feedback" role="status" aria-live="polite" hidden></div>
             <div class="question-actions">
-              <span class="gentle-reminder">Take your time. You’re learning. ☺</span>
+              <span class="gentle-reminder" id="round-status" role="status">Take your time. You’re learning. ☺</span>
               <button class="primary-button" type="submit" id="answer-button">Check answer <span aria-hidden="true">→</span></button>
               <button class="primary-button" type="button" id="next-button" hidden>Next question <span aria-hidden="true">→</span></button>
+              <button class="secondary-button" type="button" id="skip-button">Skip for now <span aria-hidden="true">↷</span></button>
             </div>
           </form>
         </div>
@@ -177,9 +184,11 @@
           <div><span class="step-label">QUICK REVIEW</span><h2>Your answers</h2></div>
           <span id="review-count" class="review-count"></span>
         </div>
+        <div id="topic-review" class="topic-review" hidden></div>
         <div id="answer-review" class="answer-review"></div>
         <div class="results-actions">
           <button class="secondary-button" type="button" data-go="welcome">Choose another subject</button>
+          <button class="secondary-button" type="button" data-retry-missed hidden>Retry missed questions</button>
           <button class="primary-button" type="button" data-retry>Try this quiz again <span aria-hidden="true">↻</span></button>
         </div>
       </section>
